@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercise2_PowerSum", "Exercise2_PowerSum\Exercise2_PowerSum.csproj", "{01955F5D-70A8-4D07-96D9-70490F240904}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exercise3_ContactManager", "Exercise3_ContactManager", "{91B45933-B5D1-45F7-B723-AFC89893AF58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E097B204-ADB6-4526-9D35-FAFECFEE8549}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,8 @@ Global
 		{01955F5D-70A8-4D07-96D9-70490F240904}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01955F5D-70A8-4D07-96D9-70490F240904}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01955F5D-70A8-4D07-96D9-70490F240904}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E097B204-ADB6-4526-9D35-FAFECFEE8549} = {91B45933-B5D1-45F7-B723-AFC89893AF58}
 	EndGlobalSection
 EndGlobal
