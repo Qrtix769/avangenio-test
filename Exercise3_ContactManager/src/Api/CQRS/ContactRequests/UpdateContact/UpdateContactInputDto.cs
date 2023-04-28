@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain;
+namespace Api.CQRS.ContactRequests.UpdateContact;
 
-public class Contact : BaseEntity
+public class UpdateContactInputDto
 {
 	[Required]
 	[StringLength(128)]
 	public string FirstName { get; set; }
-	
+
 	[StringLength(128)]
 	public string? LastName { get; set; }
 
@@ -17,12 +17,9 @@ public class Contact : BaseEntity
 	public string Email { get; set; }
 
 	[Required]
-	[DataType(DataType.Date)] 
+	[DataType(DataType.Date)]
 	public DateTime DateOfBirth { get; set; }
 
-	[Required]
 	[StringLength(20)]
 	public string Phone { get; set; }
-
-	public Guid Owner { get; set; }
 }

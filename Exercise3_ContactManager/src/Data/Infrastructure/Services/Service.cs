@@ -32,7 +32,7 @@ public class Service<TEntity> : IService<TEntity> where TEntity : BaseEntity
 	public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
 		=> await _unitOfWork.Repository<TEntity>().GetAsync(e => e.Id == id, cancellationToken: cancellationToken);
 	
-	public async Task RemoveAsync(Guid id, CancellationToken cancellationToken = default)
+	public async Task RemoveByIdAsync(Guid id, CancellationToken cancellationToken = default)
 	{
 		var entity = await _unitOfWork.Repository<TEntity>().GetAsync(e => e.Id == id, cancellationToken) 
 			?? throw new ArgumentException($"Does not exist {nameof(TEntity)} with Id {id}");

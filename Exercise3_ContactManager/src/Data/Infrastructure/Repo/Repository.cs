@@ -44,22 +44,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEnti
 
 
 	public Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
-		=> Task.Run(() =>
-		{
-			var entry = _dbSet.Attach(entity);
-			entry.State = EntityState.Modified;
-			return entry.Entity;
-		}, cancellationToken);
+		=> Task.Run(() => _dbSet.Update(entity).Entity, cancellationToken);
 
 	public Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
-		=> Task.Run(() =>
-		{
-			_dbSet.AttachRange(entities);
-			foreach (var entity in entities)
-			{
-				_context.Entry(entity).State = EntityState.Modified;
-			}
-		}, cancellationToken);
+		=> Task.Run(() => _dbSet.UpdateRange(entities), cancellationToken);
 
 	public Task RemoveAsync(TEntity entity, CancellationToken cancellationToken = default)
 		=> Task.Run(() => _dbSet.Remove(entity), cancellationToken);

@@ -1,27 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain;
+namespace Api.CQRS.ContactRequests.GetAllContacts;
 
-public class Contact : BaseEntity
+public class GetAllContactsDto
 {
-	[Required]
-	[StringLength(128)]
+	public Guid Id { get; set; }
+
 	public string FirstName { get; set; }
-	
-	[StringLength(128)]
+
 	public string? LastName { get; set; }
 
-	[Required]
-	[StringLength(128)]
-	[DataType(DataType.EmailAddress)]
 	public string Email { get; set; }
 
-	[Required]
-	[DataType(DataType.Date)] 
 	public DateTime DateOfBirth { get; set; }
 
-	[Required]
-	[StringLength(20)]
+	public int Age { get; set; }
+
 	public string Phone { get; set; }
 
 	public Guid Owner { get; set; }

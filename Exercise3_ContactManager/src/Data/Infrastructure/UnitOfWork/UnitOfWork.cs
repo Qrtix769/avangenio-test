@@ -12,7 +12,7 @@ public class UnitOfWork : IUnitOfWork
 	#endregion
 	
 	#region constructors
-	public UnitOfWork(DbContext context)
+	public UnitOfWork(UserManagerDbContext context)
 	{
 		_context = context;
 		_repositories = new Dictionary<string, object>();

@@ -13,5 +13,5 @@ public interface IService<TEntity> where TEntity : BaseEntity
 
 	Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-	Task RemoveAsync(Guid id, CancellationToken cancellationToken = default);
+	Task RemoveByIdAsync(Guid id, CancellationToken cancellationToken = default);
 }
