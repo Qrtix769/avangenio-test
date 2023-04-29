@@ -3,6 +3,7 @@ using Api.CQRS.ContactRequests.GetAllContacts;
 using Api.CQRS.ContactRequests.GetContactById;
 using Api.CQRS.ContactRequests.UpdateContact;
 using Api.CQRS.UserRequests.GetContactById;
+using Api.CQRS.UserRequests.GetUserById;
 using Api.CQRS.UserRequests.SignUp;
 using Api.Extensions;
 using AutoMapper;

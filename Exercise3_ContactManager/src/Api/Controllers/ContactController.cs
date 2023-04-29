@@ -1,16 +1,20 @@
 ﻿using System.Net;
+using System.Security.Claims;
 using Api.CQRS.ContactRequests.CreateContact;
 using Api.CQRS.ContactRequests.RemoveContactById;
 using Api.CQRS.ContactRequests.GetAllContacts;
 using Api.CQRS.ContactRequests.GetContactById;
 using Api.CQRS.ContactRequests.UpdateContact;
+using Api.Identity;
 using Infrastructure.Services;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
+[Authorize]
 [Route("api/contacts")]
 public class ContactController : Controller
 {
@@ -55,6 +59,7 @@ public class ContactController : Controller
 	[Route("")]
 	public async Task<IActionResult> GetAllContacts()
 	{
+
 		var query = new GetAllContactsQuery();
 		var response = await _mediator.Send(query);
 
@@ -81,6 +86,7 @@ public class ContactController : Controller
 	#region DELET endpoints
 
 	[HttpDelete]
+	[Authorize(Policy = IdentityData.CubanAdminUserPolicyName)]
 	[Route("{id:guid}")]
 	public async Task<IActionResult> RemoveContactById(Guid id)
 	{

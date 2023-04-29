@@ -3,6 +3,7 @@ using System.Text.Json;
 using Api.CQRS.UserRequests.GetContactById;
 using Api.CQRS.UserRequests.SignUp;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -52,6 +53,7 @@ public class UserController : Controller
 	#region GET endpoints
 
 	[HttpGet]
+	[Authorize]
 	[Route("{id:guid}")]
 	public async Task<IActionResult> GetUserById(Guid id)
 	{

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Api.CQRS.UserRequests.GetContactById;
+﻿namespace Api.CQRS.UserRequests.GetUserById;
 
 public class GetUserByIdDto
 {

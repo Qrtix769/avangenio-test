@@ -1,4 +1,5 @@
 using System.Text;
+using Api.Identity;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -23,18 +24,27 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(options => 
 	options.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-	options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(cfg => cfg.TokenValidationParameters = new TokenValidationParameters()
 	{
-		ValidateIssuer = true,
+		ValidIssuers = builder.Configuration.GetSection("JwtSettings:Issuers")
+			.GetChildren().Select(i => i.Value),
+		ValidAudiences = builder.Configuration.GetSection("JwtSettings:Audiences")
+			.GetChildren().Select(a => a.Value),
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]!)),
 		ValidateAudience = true,
+		ValidateIssuer = true,
 		ValidateLifetime = true,
-		ValidateIssuerSigningKey = true,
-		ValidIssuer = builder.Configuration["Jwt:Issuer"],
-		ValidAudience = builder.Configuration["Jwt:Audience"],
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException()))
-	};
+		ValidateIssuerSigningKey = true
+	});
+
+builder.Services.AddAuthorization(options =>
+{
+	options.AddPolicy(IdentityData.CubanAdminUserPolicyName, p =>
+	{
+		p.RequireClaim(IdentityData.AdminUserClaimName, "true");
+		p.RequireClaim(IdentityData.CountryUserClaimName, "CU");
+	});
 });
 
 var app = builder.Build();
@@ -48,7 +58,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 
 app.UseAuthorization();
 

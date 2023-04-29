@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Api.CQRS.UserRequests.GetUserById;
 using AutoMapper;
 using Infrastructure.Services;
 using MediatR;
