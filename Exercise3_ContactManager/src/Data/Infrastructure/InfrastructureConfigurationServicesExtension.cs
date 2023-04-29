@@ -20,6 +20,7 @@ namespace Infrastructure
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 			services.AddSingleton<IContactService, ContactService>();
+			services.AddSingleton<IUserService, UserService>();
 
 			return services;
 		}

@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain;
+namespace Api.CQRS.UserRequests.SignUp;
 
-public class User : BaseEntity
+public class SignUpInputDto
 {
 	[Required]
 	[StringLength(128)]
 	public string FirstName { get; set; }
-	
+
 	[Required]
 	[StringLength(128)]
 	public string LastName { get; set; }
@@ -20,10 +20,8 @@ public class User : BaseEntity
 	[Required]
 	[StringLength(60)]
 	public string UserName { get; set; }
-	
+
 	[Required]
 	[StringLength(256)]
 	public string Password { get; set; }
-
-	public IEnumerable<Contact>? Contacts { get; set; }
 }
