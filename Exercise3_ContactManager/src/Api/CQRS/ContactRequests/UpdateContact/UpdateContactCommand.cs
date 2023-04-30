@@ -3,10 +3,10 @@ using MediatR;
 
 namespace Api.CQRS.ContactRequests.UpdateContact
 {
-	public class UpdateContactCommand : IRequest<HttpStatusCode>
+	public class UpdateContactCommand : IRequest<(UpdateContactOutputDto? contactOutputDto, HttpStatusCode status, string? message)>
 	{
-		public UpdateContactInputDto ContactDto { get; set; }
-		public Guid Id { get; set; }
+		public UpdateContactInputDto ContactDto { get; }
+		public Guid Id { get; }
 
 		public UpdateContactCommand(UpdateContactInputDto contactDto, Guid id)
 		{

@@ -24,13 +24,13 @@ public class UserService : Service<User>, IUserService
 
 	#region IUserService impl
 
-	public async Task<User> GetByUserNameAsync(string userName)
-		=> await _unitOfWork.Repository<User>().GetAsync(u => u.UserName == userName) 
+	public async Task<User> GetByUserNameAsync(string userName, CancellationToken cancellationToken = default)
+		=> await _unitOfWork.Repository<User>().GetAsync(u => u.UserName == userName, cancellationToken) 
 		   ?? throw new ArgumentException($"Does not exist user with 'UserName': {userName}");
 
-	public async Task<bool> IsEmailExistAsync(string email, Guid? id = null)
+	public async Task<bool> IsEmailExistAsync(string email, Guid? id = null, CancellationToken cancellationToken = default)
 		=> await _unitOfWork.Repository<User>()
-			.GetAsync(u => id == null ? u.Email == email : u.Email == email && u.Id != id) != null;
+			.GetAsync(u => id == null ? u.Email == email : u.Email == email && u.Id != id, cancellationToken) != null;
 
 	#endregion
 }

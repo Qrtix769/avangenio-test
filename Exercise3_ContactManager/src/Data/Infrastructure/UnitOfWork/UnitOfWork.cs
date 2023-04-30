@@ -7,7 +7,7 @@ namespace Infrastructure.UnitOfWork;
 public class UnitOfWork : IUnitOfWork
 {
 	#region variables
-	private readonly DbContext _context;
+	private readonly UserManagerDbContext _context;
 	private readonly Dictionary<string, object> _repositories;
 	#endregion
 	

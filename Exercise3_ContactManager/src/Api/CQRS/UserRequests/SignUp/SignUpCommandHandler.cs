@@ -28,7 +28,7 @@ public class SignUpCommandHandler : IRequestHandler<SignUpCommand, (SignUpOutput
 
 	public async Task<(SignUpOutputDto? userDto, HttpStatusCode status, string? message)> Handle(SignUpCommand request, CancellationToken cancellationToken)
 	{
-		if (await _userService.IsEmailExistAsync(request.SignUpInputDto.Email))
+		if (await _userService.IsEmailExistAsync(request.SignUpInputDto.Email, cancellationToken: cancellationToken))
 			return (null, HttpStatusCode.BadRequest,
 				$"Exist another user with this email: {request.SignUpInputDto.Email}");
 

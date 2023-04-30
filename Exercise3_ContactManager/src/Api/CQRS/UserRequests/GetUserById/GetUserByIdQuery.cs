@@ -1,8 +1,7 @@
 ﻿using System.Net;
-using Api.CQRS.UserRequests.GetUserById;
 using MediatR;
 
-namespace Api.CQRS.UserRequests.GetContactById;
+namespace Api.CQRS.UserRequests.GetUserById;
 
 public class GetUserByIdQuery : IRequest<(HttpStatusCode status, GetUserByIdDto? userDto)>
 {

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Api.Extensions;
 using AutoMapper;
 using Domain;
 using Infrastructure.Services;
@@ -6,7 +7,7 @@ using MediatR;
 
 namespace Api.CQRS.ContactRequests.UpdateContact
 {
-	public class UpdateContactCommandHandler : IRequestHandler<UpdateContactCommand, HttpStatusCode>
+	public class UpdateContactCommandHandler : IRequestHandler<UpdateContactCommand, (UpdateContactOutputDto? contactOutputDto, HttpStatusCode status, string? message)>
 	{
 		#region variables
 
@@ -26,12 +27,15 @@ namespace Api.CQRS.ContactRequests.UpdateContact
 		#endregion
 
 
-		public async Task<HttpStatusCode> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
+		public async Task<(UpdateContactOutputDto? contactOutputDto, HttpStatusCode status, string? message)> Handle(UpdateContactCommand request, CancellationToken cancellationToken)
 		{
+			if (request.ContactDto.DateOfBirth.GetAge() < 18)
+				return (null, HttpStatusCode.BadRequest, "The age of the contact must be older than 18");
+
 			var contact = await _service.GetByIdAsync(request.Id, cancellationToken);
 
 			if (contact == null)
-				return HttpStatusCode.BadRequest;
+				return (null, HttpStatusCode.NotFound, $"Does not exist contact with id: {request.Id}");
 
 			contact.DateOfBirth = request.ContactDto.DateOfBirth;
 			contact.Email = request.ContactDto.Email;
@@ -39,8 +43,8 @@ namespace Api.CQRS.ContactRequests.UpdateContact
 			contact.LastName = request.ContactDto.LastName;
 			contact.Phone = request.ContactDto.Phone;
 			
-			await _service.UpdateAsync(contact, cancellationToken);
-			return HttpStatusCode.OK;
+			var result = await _service.UpdateAsync(contact, cancellationToken);
+			return (_mapper.Map<UpdateContactOutputDto>(result), HttpStatusCode.OK, null);
 		}
 	}
 }

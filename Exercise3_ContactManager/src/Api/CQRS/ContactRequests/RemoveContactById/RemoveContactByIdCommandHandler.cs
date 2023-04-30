@@ -34,7 +34,7 @@ namespace Api.CQRS.ContactRequests.RemoveContactById
 			}
 			catch (ArgumentException)
 			{
-				return HttpStatusCode.BadRequest;
+				return HttpStatusCode.NotFound;
 			}
 
 			return HttpStatusCode.OK;

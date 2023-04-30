@@ -2,7 +2,6 @@
 using Api.CQRS.ContactRequests.GetAllContacts;
 using Api.CQRS.ContactRequests.GetContactById;
 using Api.CQRS.ContactRequests.UpdateContact;
-using Api.CQRS.UserRequests.GetContactById;
 using Api.CQRS.UserRequests.GetUserById;
 using Api.CQRS.UserRequests.SignUp;
 using Api.Extensions;
@@ -31,15 +30,17 @@ public class MappingProfile : Profile
 			o => o.MapFrom(s => s.DateOfBirth.GetAge())
 		);
 		CreateMap<Contact, UpdateContactInputDto>().ReverseMap();
+		CreateMap<Contact, UpdateContactOutputDto>().ForMember(
+			d => d.Age,
+			o => o.MapFrom(s => s.DateOfBirth.GetAge())
+		);
 
 		#endregion
 
 		#region user mapping
 
 		CreateMap<User, SignUpInputDto>().ReverseMap();
-		CreateMap<User, SignUpOutputDto>()
-			.ForMember(d => d.GivenName, o => o.MapFrom(s => s.FirstName))
-			.ForMember(d => d.Surname, o => o.MapFrom(s => s.LastName));
+		CreateMap<User, SignUpOutputDto>().ReverseMap();
 		CreateMap<User, GetUserByIdDto>().ReverseMap();
 
 		#endregion

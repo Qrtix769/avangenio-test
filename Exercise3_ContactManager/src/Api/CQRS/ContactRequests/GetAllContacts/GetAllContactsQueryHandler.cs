@@ -5,35 +5,44 @@ using MediatR;
 
 namespace Api.CQRS.ContactRequests.GetAllContacts;
 
-public class GetAllContactsQueryHandler : IRequestHandler<GetAllContactsQuery, (IEnumerable<GetAllContactsDto> contactDtoList, HttpStatusCode status)>
+public class GetAllContactsQueryHandler : IRequestHandler<GetAllContactsQuery, (IEnumerable<GetAllContactsDto>? contactDtoList, HttpStatusCode status, string? message)>
 {
 	#region variables
 
-	private readonly IContactService _service;
+	private readonly IContactService _contactService;
+	private readonly IUserService _userService;
 	private readonly IMapper _mapper;
 
 	#endregion
 
 	#region constructors
 
-	public GetAllContactsQueryHandler(IContactService service, IMapper mapper)
+	public GetAllContactsQueryHandler(IContactService contactService, IMapper mapper, IUserService userService)
 	{
-		_service = service;
+		_contactService = contactService;
 		_mapper = mapper;
+		_userService = userService;
 	}
 
 	#endregion
 
 	#region handle
 
-	public async Task<(IEnumerable<GetAllContactsDto> contactDtoList, HttpStatusCode status)> Handle(GetAllContactsQuery request, CancellationToken cancellationToken)
+	public async Task<(IEnumerable<GetAllContactsDto>? contactDtoList, HttpStatusCode status, string? message)> Handle(GetAllContactsQuery request, CancellationToken cancellationToken)
 	{
-		var contacts = await _service.GetAllAsync(cancellationToken);
+		try
+		{
+			var user = await _userService.GetByUserNameAsync(request.UserName, cancellationToken);
 
-		return (contacts.Select(contact => _mapper.Map<GetAllContactsDto>(contact)), HttpStatusCode.OK);
+			var contacts = await _contactService.GetAllByOwnerAsync(user.Id, cancellationToken);
+
+			return (contacts.Select(contact => _mapper.Map<GetAllContactsDto>(contact)), HttpStatusCode.OK, null);
+		}
+		catch (ArgumentException ex)
+		{
+			return (null, HttpStatusCode.NotFound, $"Does not exist user with name: {request.UserName}");
+		}
 	}
 
 	#endregion
-
-
 }

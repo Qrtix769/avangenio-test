@@ -1,10 +1,9 @@
 ﻿using System.Net;
-using Api.CQRS.UserRequests.GetUserById;
 using AutoMapper;
 using Infrastructure.Services;
 using MediatR;
 
-namespace Api.CQRS.UserRequests.GetContactById;
+namespace Api.CQRS.UserRequests.GetUserById;
 
 public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, (HttpStatusCode status, GetUserByIdDto? userDto)>
 {

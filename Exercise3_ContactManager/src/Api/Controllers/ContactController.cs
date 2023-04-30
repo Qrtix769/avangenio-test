@@ -6,7 +6,6 @@ using Api.CQRS.ContactRequests.GetAllContacts;
 using Api.CQRS.ContactRequests.GetContactById;
 using Api.CQRS.ContactRequests.UpdateContact;
 using Api.Identity;
-using Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,15 +38,24 @@ public class ContactController : Controller
 	[Route("")]
 	public async Task<IActionResult> CreateContact(CreateContactInputDto contactInputInputDto)
 	{
-		var command = new CreateContactCommand(contactInputInputDto);
+		if (HttpContext.User.Identity is not ClaimsIdentity identity) 
+			return BadRequest("Invalid Claims");
+		
+		var userName = identity.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier"))?.Value;
+
+		if (userName == null) return BadRequest("User name do not received");
+		
+		var command = new CreateContactCommand(contactInputInputDto, userName);
 		var response = await _mediator.Send(command);
 
 		return response switch
 		{
 			{ contactDto: not null, status: HttpStatusCode.Created } => Created(
 				$"/api/contacts/{response.contactDto.Id}", response.contactDto),
-
-			_ => BadRequest()
+			
+			{contactDto: null, status: HttpStatusCode.NotFound} => NotFound(response.message),
+			
+			_ => BadRequest(response.message)
 		};
 	}
 
@@ -59,26 +67,46 @@ public class ContactController : Controller
 	[Route("")]
 	public async Task<IActionResult> GetAllContacts()
 	{
+		if (HttpContext.User.Identity is not ClaimsIdentity identity) 
+			return BadRequest("Invalid Claims");
+		
+		var userName = identity.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier"))?.Value;
 
-		var query = new GetAllContactsQuery();
+		if (userName == null) return BadRequest("User name do not received");
+
+		var query = new GetAllContactsQuery(userName);
 		var response = await _mediator.Send(query);
 
-		return Ok(response.contactDtoList);
+		return response switch
+		{
+			{contactDtoList: null, status: HttpStatusCode.NotFound} => NotFound(response.message),
+			{contactDtoList: not null, status: HttpStatusCode.OK} => Ok(response.contactDtoList),
+			_ => BadRequest()
+		};
+
 	}
 
 	[HttpGet]
 	[Route("{id:guid}")]
 	public async Task<IActionResult> GetContactById(Guid id)
 	{
-		var query = new GetContactByIdQuery(id);
+		if (HttpContext.User.Identity is not ClaimsIdentity identity) 
+			return BadRequest("Invalid Claims");
+		
+		var userName = identity.Claims.FirstOrDefault(c => c.Type.Contains("nameidentifier"))?.Value;
+
+		if (userName == null) return BadRequest("User name do not received");
+
+		var query = new GetContactByIdQuery(id, userName);
 		var response = await _mediator.Send(query);
 
 		return response switch
 		{
 			{ contactDto: not null, status: HttpStatusCode.OK } => Ok(response.contactDto),
-			{ contactDto: null, status: HttpStatusCode.NotFound } => NotFound(),
+			{ contactDto: null, status: HttpStatusCode.NotFound } => NotFound(response.message),
 			_ => BadRequest()
 		};
+
 	}
 
 	#endregion
@@ -96,6 +124,7 @@ public class ContactController : Controller
 		return response switch
 		{
 			HttpStatusCode.OK => Ok(),
+			HttpStatusCode.NotFound => NotFound($"Does not exist Contact with Id {id}"),
 			_ => BadRequest()
 		};
 	}
@@ -113,10 +142,12 @@ public class ContactController : Controller
 
 		return response switch
 		{
-			HttpStatusCode.OK => Ok(),
-			_ => BadRequest()
+			{status: HttpStatusCode.OK} => Ok(response.contactOutputDto),
+			{status: HttpStatusCode.NotFound} => NotFound(response.message),
+			_ => BadRequest(response.message)
 		};
 	}
 
 	#endregion
+
 }

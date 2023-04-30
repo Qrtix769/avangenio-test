@@ -3,12 +3,12 @@ using MediatR;
 
 namespace Api.CQRS.ContactRequests.GetAllContacts;
 
-public class GetAllContactsQuery : IRequest<(IEnumerable<GetAllContactsDto> contactDtoList, HttpStatusCode status)>
+public class GetAllContactsQuery : IRequest<(IEnumerable<GetAllContactsDto>? contactDtoList, HttpStatusCode status, string? message)>
 {
-	//public Guid UserId { get; set; }
+	public string UserName { get; set; }
 
-	//public GetAllContactsQuery(Guid userId)
-	//{
-	//	UserId = userId;
-	//}
+	public GetAllContactsQuery(string userName)
+	{
+		UserName = userName;
+	}
 }

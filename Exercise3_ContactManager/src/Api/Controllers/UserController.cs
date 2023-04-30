@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
-using Api.CQRS.UserRequests.GetContactById;
+using Api.CQRS.UserRequests.GetUserById;
 using Api.CQRS.UserRequests.SignUp;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

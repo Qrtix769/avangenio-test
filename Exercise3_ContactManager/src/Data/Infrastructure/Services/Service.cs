@@ -11,7 +11,8 @@ public class Service<TEntity> : IService<TEntity> where TEntity : BaseEntity
     #endregion
 
     #region constructors
-    public Service(IServiceProvider serviceProvider)
+
+    protected Service(IServiceProvider serviceProvider)
     {
 		var scoped = serviceProvider.CreateScope();
 		_unitOfWork = scoped.ServiceProvider.GetRequiredService<IUnitOfWork>();
