@@ -1,0 +1,24 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ac565f3a_002D865b_002D4a14_002Db021_002Dacf88fbfdce5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetManyAsync_ExpressionNull_ReturnListWith3Items" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.UnitOfWorkTest.GetManyAsync_ExpressionNull_ReturnListWith3Items&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.SignUpCommandHandlerTest.SignUpCommandHandle_ExistEmailAndNullUserId_returnBadRequest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.SignUpCommandHandlerTest.SignUpCommandHandle_ExistEmail_returnBadRequest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.SignUpCommandHandlerTest.SignUpCommandHandler_NotExistedEmail_returnCreated&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.GetUserByIdHandlerTest.GetUserByIdQueryHandler_ExistingUserId_returnAnUser&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.GetUserByIdHandlerTest.GetUserByIdQueryHandler_NotExistingUserId_returnNull&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.UserRequestTest.GetUserByIdHandlerTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.UserRequestTest.SignUpCommandHandlerTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.CreateContactCommandHandlerTest.CreateContact_AgeContactYoungerThan18_returnBadRequest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.CreateContactCommandHandlerTest.CreateContact_NotExistingUser_returnNotFound&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.CreateContactCommandHandlerTest.CreateContact_AgeContactOlderThan18_returnCreated&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.GetAllContactsQueryHandlerTest.GetAllContacts__NotExistingUser_returnNotFound&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.GetAllContactsQueryHandlerTest.GetAllContacts_ExistingUser_returnOk&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.GetAllContactsQueryHandlerTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.GetContactByIdQueryHandlerTest.GetContactById_ExistingUser_returnOk&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.GetContactByIdQueryHandlerTest.GetContactById_ExistingUserAndNotExistingContact_returnNotFound&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.RemoveContactByIdCommandHandlerTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::D548468D-481F-4737-8392-7A690CBCD1DB::net7.0::UnitTest.ContactRequestTest.UpdateContactCommandHandlerTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>
