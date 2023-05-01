@@ -40,7 +40,7 @@ public class GetContactByIdQueryHandler : IRequestHandler<GetContactByIdQuery, (
 				? (_mapper.Map<GetContactByIdDto>(contact), HttpStatusCode.OK, null)
 				: (null, HttpStatusCode.NotFound, $"Does not exist contact with id: {request.Id}");
 		}
-		catch (ArgumentException ex)
+		catch (ArgumentException)
 		{
 			return (null, HttpStatusCode.NotFound, $"Does not exist user with name: {request.UserName}");
 		}

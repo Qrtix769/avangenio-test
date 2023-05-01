@@ -38,7 +38,7 @@ public class GetAllContactsQueryHandler : IRequestHandler<GetAllContactsQuery, (
 
 			return (contacts.Select(contact => _mapper.Map<GetAllContactsDto>(contact)), HttpStatusCode.OK, null);
 		}
-		catch (ArgumentException ex)
+		catch (ArgumentException)
 		{
 			return (null, HttpStatusCode.NotFound, $"Does not exist user with name: {request.UserName}");
 		}

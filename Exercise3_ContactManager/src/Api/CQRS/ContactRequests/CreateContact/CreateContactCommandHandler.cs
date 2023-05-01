@@ -47,7 +47,7 @@ namespace Api.CQRS.ContactRequests.CreateContact
 
 				return (_mapper.Map<CreateContactOutputDto>(result), HttpStatusCode.Created, null);
 			}
-			catch (ArgumentException ex)
+			catch (ArgumentException)
 			{
 				return (null, HttpStatusCode.NotFound, $"Does not exist user with name: {request.UserName}. Therefore the contact could not be created");
 			}
