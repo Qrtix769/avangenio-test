@@ -42,7 +42,7 @@ builder.Services.AddAuthorization(options =>
 {
 	options.AddPolicy(IdentityData.CubanAdminUserPolicyName, p =>
 	{
-		p.RequireClaim(IdentityData.AdminUserClaimName, "true");
+		p.RequireClaim(IdentityData.AdminUserClaimName, "Administrator");
 		p.RequireClaim(IdentityData.CountryUserClaimName, "CU");
 	});
 });

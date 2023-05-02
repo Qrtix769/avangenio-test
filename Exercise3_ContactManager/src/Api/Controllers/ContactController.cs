@@ -36,7 +36,7 @@ public class ContactController : Controller
 
 	[HttpPost]
 	[Route("")]
-	public async Task<IActionResult> CreateContact(CreateContactInputDto contactInputInputDto)
+	public async Task<IActionResult> CreateContact([FromBody]CreateContactInputDto contactInputInputDto)
 	{
 		if (HttpContext.User.Identity is not ClaimsIdentity identity) 
 			return BadRequest("Invalid Claims");
@@ -88,7 +88,7 @@ public class ContactController : Controller
 
 	[HttpGet]
 	[Route("{id:guid}")]
-	public async Task<IActionResult> GetContactById(Guid id)
+	public async Task<IActionResult> GetContactById([FromRoute]Guid id)
 	{
 		if (HttpContext.User.Identity is not ClaimsIdentity identity) 
 			return BadRequest("Invalid Claims");
@@ -116,7 +116,7 @@ public class ContactController : Controller
 	[HttpDelete]
 	[Authorize(Policy = IdentityData.CubanAdminUserPolicyName)]
 	[Route("{id:guid}")]
-	public async Task<IActionResult> RemoveContactById(Guid id)
+	public async Task<IActionResult> RemoveContactById([FromRoute]Guid id)
 	{
 		var query = new RemoveContactByIdCommand(id);
 		var response = await _mediator.Send(query);
@@ -135,7 +135,7 @@ public class ContactController : Controller
 
 	[HttpPut]
 	[Route("{id:guid}")]
-	public async Task<IActionResult> UpdateContact(Guid id, UpdateContactInputDto contactDto)
+	public async Task<IActionResult> UpdateContact([FromRoute]Guid id, [FromBody]UpdateContactInputDto contactDto)
 	{
 		var command = new UpdateContactCommand(contactDto, id);
 		var response = await _mediator.Send(command);

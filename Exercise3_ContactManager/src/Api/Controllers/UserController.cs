@@ -31,7 +31,7 @@ public class UserController : Controller
 
 	[HttpPost]
 	[Route("")]
-	public async Task<IActionResult> SignUp(SignUpInputDto userDto)
+	public async Task<IActionResult> SignUp([FromBody]SignUpInputDto userDto)
 	{
 		var command = new SignUpCommand(userDto);
 		var response = await _mediator.Send(command);
@@ -55,7 +55,7 @@ public class UserController : Controller
 	[HttpGet]
 	[Authorize]
 	[Route("{id:guid}")]
-	public async Task<IActionResult> GetUserById(Guid id)
+	public async Task<IActionResult> GetUserById([FromRoute]Guid id)
 	{
 		var query = new GetUserByIdQuery(id);
 		var response = await _mediator.Send(query);
